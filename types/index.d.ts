@@ -5,6 +5,7 @@ type ArrayElementType<ArrType> = ArrType extends readonly (infer ElementType)[]
   : never;
 
 export type CardType = ArrayElementType<typeof CARDS>;
+export type DetailType = ArrayElementType<typeof CARDS>;
 
 export type SwipeType = "like" | "nope" | "superlike";
 
@@ -16,4 +17,11 @@ export interface CardProps {
   card: CardType;
   active: boolean;
   removeCard: (oldCard: CardType, swipe: SwipeType) => void;
+  handleInfo: Function;
+}
+
+export interface DetailsProps {
+  card: DetailType;
+  active: boolean;
+  handleInfo: Function;
 }

@@ -3,33 +3,38 @@ import { CardProps } from "types";
 import { PanInfo, motion } from "framer-motion";
 import Image from "next/image";
 
-const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
+const Card: React.FC<CardProps> = ({
+  card,
+  removeCard,
+  active,
+  handleInfo,
+}) => {
   const [leaveX, setLeaveX] = useState(0);
   const [leaveY, setLeaveY] = useState(0);
 
+  const { id, emoji, name, color, description, image } = card;
   const onDragEnd = (_e: any, info: PanInfo) => {
     if (info.offset.y < -100) {
       setLeaveY(-2000);
       removeCard(card, "superlike");
-      console.log("Up");
+
       return;
     }
     if (info.offset.x > 100) {
       setLeaveX(1000);
       removeCard(card, "like");
-      console.log("Right");
     }
     if (info.offset.x < -100) {
       setLeaveX(-1000);
       removeCard(card, "nope");
-      console.log("Left");
     }
   };
-  const classNames = `absolute h-[30rem] w-[25rem] bg-white shadow-xl rounded-2xl  overflow-y-scroll `;
+
+  const classNames = `absolute h-[40rem] w-[25rem] bg-white shadow-xl rounded-2xl   `;
   return (
     <>
       {active ? (
-        <div className="absolute  flex flex-col justify-center items-center  ">
+        <div className="absolute  flex flex-col justify-center items-center transition ease-out delay-700 ">
           <motion.div
             drag={true}
             dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
@@ -39,7 +44,6 @@ const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
             }}
             animate={{
               scale: 1.05,
-              // rotate: `${card.name.length % 2 === 0 ? 6 : -6}deg`,
             }}
             exit={{
               x: leaveX,
@@ -52,40 +56,45 @@ const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
             data-testid="active-card"
           >
             <div className=" w-full flex flex-col justify-center items-center">
-              <Emoji label={card.name} emoji={card.emoji} />
-              {/* <Image
+              <Image
                 src={card.image}
-                width={100}
+                width={350}
                 height={100}
-                className=" mt-4"
+                className=" mt-4 rounded-xl "
                 alt="picture"
-              /> */}
-              <Title title={card.name} color={card.color} />
+                priority
+              />
+              <div className=" flex justify-between items-center p-5">
+                <Title title={card.name} color={card.color} />
+                <p
+                  className=" bg-slate-400 p-2 ml-4 mt-3 rounded-full cursor-pointer "
+                  onClick={() => handleInfo()}
+                >
+                  Info
+                </p>
+              </div>
             </div>
-            <Description details={card.description} />
           </motion.div>
         </div>
       ) : (
         <div
-          className={`${classNames}
+          className={`${classNames} transition ease-out delay-700
             `}
-          // className={`${classNames}
-          //   ${card.name.length % 2 === 0 ? "rotate-6" : "-rotate-6"}`}
         >
-          <Emoji label={card.name} emoji={card.emoji} />
-          {/* <Image src={card.image} width={100} height={100} alt="picture" /> */}
+          <Image
+            src={card.image}
+            width={350}
+            height={100}
+            className=" mt-4 rounded-xl "
+            alt="picture"
+          />
           <Title title={card.name} color={card.color} />
-          <Description details={card.description} />
         </div>
       )}
     </>
   );
 };
 
-/**
- * a11y friendly component for emojis
- * @reference https://devyarns.com/accessible-emojis
- */
 const Emoji: React.FC<{ emoji: string; label: string }> = ({
   emoji,
   label,

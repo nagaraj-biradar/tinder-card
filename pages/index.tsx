@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next/types";
-import RotateIcon from "@icons/RotateIcon";
-import Counter from "@components/Counter";
 import { CardType, HistoryType, ResultType, SwipeType } from "types";
 import CARDS from "@data/cards";
 import Card from "@components/Card";
 import Head from "next/head";
+import Details from "@components/Details";
+import RotateIcon from "@icons/RotateIcon";
+import Counter from "@components/Counter";
 
 const Home: NextPage = () => {
   const [cards, setCards] = useState(CARDS);
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
     superlike: 0,
   });
   const [history, setHistory] = useState<HistoryType[]>([]);
+  const [info, setInfo] = useState(false);
   // index of last card
   const activeIndex = cards.length - 1;
   const removeCard = (oldCard: CardType, swipe: SwipeType) => {
@@ -40,25 +42,39 @@ const Home: NextPage = () => {
       setCards((current) => [...current, newCard]);
     }
   };
+
+  const handleInfo = () => {
+    setInfo((currentInfo) => !currentInfo);
+  };
   return (
     <div className="relative flex flex-col justify-center items-center w-full h-screen gradient">
       <Head>
         <title>Tinder cards with Framer motion</title>
       </Head>
       <AnimatePresence>
-        {cards.map((card, index) => (
-          <Card
-            key={card.name}
-            active={index === activeIndex}
-            removeCard={removeCard}
-            card={card}
-          />
-        ))}
+        {cards.map((card, index) =>
+          info ? (
+            <Details
+              key={card.name}
+              active={index === activeIndex}
+              card={card}
+              handleInfo={handleInfo}
+            />
+          ) : (
+            <Card
+              key={card.name}
+              active={index === activeIndex}
+              removeCard={removeCard}
+              card={card}
+              handleInfo={handleInfo}
+            />
+          )
+        )}
       </AnimatePresence>
       {cards.length === 0 ? (
         <span className="text-white text-xl">End of Stack</span>
       ) : null}
-      <footer className="absolute bottom-3 flex items-center space-x-4">
+      {/* <footer className="absolute bottom-3 flex items-center space-x-4">
         <div className="flex flex-col items-center space-y-2">
           <button
             disabled={history.length === 0}
@@ -78,7 +94,7 @@ const Home: NextPage = () => {
           count={result.superlike}
           testid="superlike-count"
         />
-      </footer>
+      </footer> */}
     </div>
   );
 };
