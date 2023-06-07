@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const Info: React.FC<DetailsProps> = ({ card, active, handleInfo }) => {
-  const classNames = `absolute h-[40rem] w-[25rem] bg-white shadow-xl rounded-2xl overflow-y-scroll  `;
+  const classNames = `absolute h-[screen] w-[25rem] bg-white shadow-xl rounded-2xl overflow-y-scroll  `;
   return (
     <>
       {active ? (
         <div className=" flex flex-col justify-center items-center w-full h-screen gradient">
-          <div className="absolute  flex flex-col justify-center items-center  transition ease-in-out delay-150  ">
+          <div className="absolute  flex flex-col justify-center items-center w-screen  transition ease-in-out delay-150  ">
             <motion.div
               initial={{
                 scale: 1,
@@ -22,9 +22,9 @@ const Info: React.FC<DetailsProps> = ({ card, active, handleInfo }) => {
               <div className=" w-full flex flex-col justify-center items-center">
                 <Image
                   src={card.image}
-                  width={350}
+                  width={400}
                   height={100}
-                  className=" mt-4 rounded-xl "
+                  className="rounded-xl "
                   alt="picture"
                 />
                 <div className=" flex justify-between items-center p-5">

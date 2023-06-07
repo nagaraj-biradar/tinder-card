@@ -30,7 +30,7 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
-  const classNames = `absolute h-[40rem] w-[25rem] bg-white shadow-xl rounded-2xl   `;
+  const classNames = `absolute h-[screen] w-[25rem] bg-white shadow-xl rounded-2xl   `;
   return (
     <>
       {active ? (
@@ -58,9 +58,9 @@ const Card: React.FC<CardProps> = ({
             <div className=" w-full flex flex-col justify-center items-center">
               <Image
                 src={card.image}
-                width={350}
+                width={400}
                 height={100}
-                className=" mt-4 rounded-xl "
+                className="rounded-xl "
                 alt="picture"
                 priority
               />
@@ -83,9 +83,9 @@ const Card: React.FC<CardProps> = ({
         >
           <Image
             src={card.image}
-            width={350}
+            width={400}
             height={100}
-            className=" mt-4 rounded-xl "
+            className=" rounded-xl "
             alt="picture"
           />
           <Title title={card.name} color={card.color} />
