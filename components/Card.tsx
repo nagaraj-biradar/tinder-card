@@ -30,7 +30,7 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
-  const classNames = `absolute h-[screen] w-[25rem] bg-white shadow-xl rounded-2xl   `;
+  const classNames = `absolute h-[50rem] w-[25rem] bg-white shadow-xl rounded-2xl   `;
   return (
     <>
       {active ? (

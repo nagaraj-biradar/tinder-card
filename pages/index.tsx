@@ -47,7 +47,7 @@ const Home: NextPage = () => {
     setInfo((currentInfo) => !currentInfo);
   };
   return (
-    <div className="relative flex flex-col justify-center items-center w-full h-screen gradient">
+    <div className="relative flex flex-col justify-center items-center w-full h-screen ">
       <Head>
         <title>Tinder cards with Framer motion</title>
       </Head>

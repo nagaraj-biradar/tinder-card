@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const Info: React.FC<DetailsProps> = ({ card, active, handleInfo }) => {
-  const classNames = `absolute h-[screen] w-[25rem] bg-white shadow-xl rounded-2xl overflow-y-scroll  `;
+  const classNames = `absolute h-screen w-[25rem] bg-white shadow-xl rounded-2xl overflow-y-scroll  `;
   return (
     <>
       {active ? (
-        <div className=" flex flex-col justify-center items-center w-full h-screen gradient">
+        <div className=" flex flex-col justify-center items-center w-full h-screen ">
           <div className="absolute  flex flex-col justify-center items-center w-screen  transition ease-in-out delay-150  ">
             <motion.div
               initial={{
